@@ -1,5 +1,7 @@
 package com.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,6 +31,10 @@ public class UserDao {
 
 		}
 		return user;
+	}
+
+	public List<UserBean> getAllUsers() {
+		return stmt.query("select * from users ",new BeanPropertyRowMapper<>(UserBean.class));
 	}
 
 }

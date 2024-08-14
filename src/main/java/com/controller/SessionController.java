@@ -30,7 +30,7 @@ public class SessionController {
 		return "Login";
 	}
 
-	@GetMapping("login")
+	@GetMapping(value = {"/","login"})
 	public String login() {
 		return "Login";
 	}
