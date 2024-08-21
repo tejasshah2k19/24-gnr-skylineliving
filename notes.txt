@@ -1,0 +1,4 @@
+how to send email using gmail: 
+
+1) add jar file using spring starter -> mail 
+2) configure smtp detail in appliaction.properties 
