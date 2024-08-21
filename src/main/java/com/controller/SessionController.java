@@ -1,7 +1,8 @@
 package com.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,9 @@ public class SessionController {
 
 	@Autowired
 	UserDao userDao;
+
+	@Autowired
+	private JavaMailSender mailSender;
 
 	@GetMapping("/signup")
 	public String signup() {
@@ -30,7 +34,7 @@ public class SessionController {
 		return "Login";
 	}
 
-	@GetMapping(value = {"/","login"})
+	@GetMapping(value = { "/", "login" })
 	public String login() {
 		return "Login";
 	}
@@ -53,5 +57,33 @@ public class SessionController {
 				return "Login";
 			}
 		}
+	}
+
+	@GetMapping("/forgotpassword")
+	public String forgotPassword() {
+		return "ForgotPassword";
+	}
+
+	@PostMapping("/sendotp")
+	public String sendOtp(UserBean user) {
+		// email read
+		// db check
+		UserBean userDB = userDao.findByEmail(user.getEmail());
+		// otp generate
+		if (userDB == null) {
+			// email in invalid
+			return "ForgotPassword";
+		} else {
+			// otp generate
+			String otp = "12345";
+			// send ->mail -> otp
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setTo(user.getEmail());
+			message.setSubject("OTP for Change Password");
+			message.setText(otp);
+			mailSender.send(message);
+		}
+
+		return "ChangePassword";
 	}
 }

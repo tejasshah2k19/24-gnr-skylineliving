@@ -17,6 +17,8 @@
 	</form>
 	<br>
 	<a href="signup">Signup</a>
-
+	|
+	<a href="forgotpassword">ForgotPassword?</a>
+	
 </body>
 </html>
