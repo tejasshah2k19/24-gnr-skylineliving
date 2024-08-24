@@ -75,7 +75,15 @@ public class SessionController {
 			return "ForgotPassword";
 		} else {
 			// otp generate
-			String otp = "12345";
+			String data = "123456789";
+			String otp = "";
+			for (int i = 1; i <= 6; i++) {
+				int x = (int) (Math.random() * 9);// 0
+				otp = otp + data.charAt(x);// 31
+			}
+			
+			//save into db 
+			userDao.updateOtp(user.getEmail(),otp);
 			// send ->mail -> otp
 			SimpleMailMessage message = new SimpleMailMessage();
 			message.setTo(user.getEmail());

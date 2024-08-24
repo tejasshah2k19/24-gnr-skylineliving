@@ -49,5 +49,9 @@ public class UserDao {
 		return user;
 	}
 
+	public void updateOtp(String email, String otp) {
+		stmt.update("update users set otp = ? where email = ? ",otp,email);
+	}
+
 
 }
