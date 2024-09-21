@@ -6,3 +6,13 @@ how to send email using gmail:
 
 app specific password -> send mail 
 
+
+
+property table 
+field 
+bean
+controller
+dao
+	add property 
+	list property 
+	

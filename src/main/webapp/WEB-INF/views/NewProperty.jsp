@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>New Property</title>
 </head>
 <body>
-<h2>Home</h2>
-<a href="newproperty">Add New Property</a> | 
-<a href="myproperty">My Property</a> | 
-<a href="searchproperty">Search Property</a> | 
+	<h2>New Property</h2>
 </body>
 </html>

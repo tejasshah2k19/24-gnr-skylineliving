@@ -11,6 +11,8 @@ import com.bean.LoginBean;
 import com.bean.UserBean;
 import com.dao.UserDao;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class SessionController {
 
@@ -40,7 +42,7 @@ public class SessionController {
 	}
 
 	@PostMapping("authenticate")
-	public String authenticate(LoginBean loginBean) {
+	public String authenticate(LoginBean loginBean,HttpSession session) {
 		// db
 		// Home
 		// Login
@@ -49,6 +51,9 @@ public class SessionController {
 			// invalid credentials
 			return "Login";
 		} else {
+			//valid credentials 
+			//session->user 
+			session.setAttribute("user", user);
 			if (user.getRole().equals("USER")) {
 				return "Home";
 			} else if (user.getRole().equals("ADMIN")) {

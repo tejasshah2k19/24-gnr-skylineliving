@@ -15,3 +15,11 @@ queryForObject() -> select  -> exactly 1 record
 update() => insert update delete 
 
 
+alter table users add otp varchar(6);
+
+
+create table fav(
+	favId integer primary key auto_increment,
+	userId integer,
+	propertyId integer
+);
