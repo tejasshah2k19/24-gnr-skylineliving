@@ -3,6 +3,7 @@ package com.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,9 @@ public class SessionController {
 	UserDao userDao;
 
 	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	@Autowired
 	private JavaMailSender mailSender;
 
 	@GetMapping("/signup")
@@ -30,6 +34,11 @@ public class SessionController {
 	@PostMapping("/saveuser")
 	public String saveUser(UserBean user) {
 		// db insert
+		
+		String plainPassword = user.getPassword(); 
+		
+		String encPassword = passwordEncoder.encode(plainPassword);
+		user.setPassword(encPassword);
 		user.setRole("USER");
 
 		userDao.addUser(user);

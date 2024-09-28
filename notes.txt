@@ -16,3 +16,28 @@ dao
 	add property 
 	list property 
 	
+--------------------------
+password -> plain text -> encrypted 
+
+Bcrypt ->
+
+		1) spring crypto -> lib -> pom.xml  
+						<dependency>
+							<groupId>org.springframework.security</groupId>
+							<artifactId>spring-security-crypto</artifactId>
+						</dependency>
+				
+		2) create encoder ->will encrypt the password 
+			Main java -> method 
+			@Bean
+			public PasswordEncoder getEncoder() {
+				return new BCryptPasswordEncoder();
+			}
+		
+		3) use -> 
+				@Autowired 
+				PasswonrdEncoder passwordEncoder; 
+				encrypt() -> use 
+			
+		
+		
