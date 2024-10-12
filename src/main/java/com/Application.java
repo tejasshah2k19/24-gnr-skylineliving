@@ -12,18 +12,14 @@ public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
-
-	//singleton 
+ 
+	
+	
+	//method -> object -> annotate -> singleton 
+	
 	@Bean
-	public PasswordEncoder getEncoder() {
+	PasswordEncoder getPasswordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
 	
-	// 
-	
-	
-	//
-	
-	
-	//
 }

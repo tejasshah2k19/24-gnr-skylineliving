@@ -26,6 +26,12 @@ Bcrypt ->
 							<groupId>org.springframework.security</groupId>
 							<artifactId>spring-security-crypto</artifactId>
 						</dependency>
+	
+	
+		BcryptPasswordEncoder -> encode decode -> method 
+		
+	
+	 					
 				
 		2) create encoder ->will encrypt the password 
 			Main java -> method 

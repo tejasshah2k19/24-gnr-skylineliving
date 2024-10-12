@@ -22,21 +22,21 @@ public class SessionController {
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private JavaMailSender mailSender;
 
 	@GetMapping("/signup")
 	public String signup() {
-		return "Signup";
+		return "Signup";// jsp name
 	}
 
 	@PostMapping("/saveuser")
 	public String saveUser(UserBean user) {
 		// db insert
-		
-		String plainPassword = user.getPassword(); 
-		
+
+		String plainPassword = user.getPassword(); // plain password
+
 		String encPassword = passwordEncoder.encode(plainPassword);
 		user.setPassword(encPassword);
 		user.setRole("USER");
@@ -51,25 +51,34 @@ public class SessionController {
 	}
 
 	@PostMapping("authenticate")
-	public String authenticate(LoginBean loginBean,HttpSession session) {
+	public String authenticate(LoginBean loginBean, HttpSession session) {
 		// db
 		// Home
 		// Login
-		UserBean user = userDao.login(loginBean);
+		UserBean user = userDao.findByEmail(loginBean.getEmail());// email -> user
 		if (user == null) {
 			// invalid credentials
 			return "Login";
 		} else {
-			//valid credentials 
-			//session->user 
-			session.setAttribute("user", user);
-			if (user.getRole().equals("USER")) {
-				return "Home";
-			} else if (user.getRole().equals("ADMIN")) {
-				return "AdminHome";
+			// valid credentials
+			// session->user
+//			
+
+			boolean status = passwordEncoder.matches(loginBean.getPassword(), user.getPassword());
+
+			if (status == true) {
+				session.setAttribute("user", user);
+				if (user.getRole().equals("USER")) {
+					return "Home";
+				} else if (user.getRole().equals("ADMIN")) {
+					return "AdminHome";
+				} else {
+					return "Login";// role is not present
+				}
 			} else {
-				return "Login";
+				return "Login"; // password invalid
 			}
+
 		}
 	}
 
@@ -95,9 +104,9 @@ public class SessionController {
 				int x = (int) (Math.random() * 9);// 0
 				otp = otp + data.charAt(x);// 31
 			}
-			
-			//save into db 
-			userDao.updateOtp(user.getEmail(),otp);
+
+			// save into db
+			userDao.updateOtp(user.getEmail(), otp);
 			// send ->mail -> otp
 			SimpleMailMessage message = new SimpleMailMessage();
 			message.setTo(user.getEmail());
